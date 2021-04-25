@@ -1,8 +1,21 @@
 import * as React from 'react';
 import { DataGrid, GridColDef } from '@material-ui/data-grid';
+import API from '../utils/api';
 
-// // import api from '../utils/api';
-// import Users from '../data/'
+// have to call API.getUsers().then do stuff. 
+API.getUsers().then(results => {
+  console.log(results.data.results[0])
+  const userData = results.data.results;
+  userData.map(() => {
+    console.log('mapping')
+  })
+  
+  // results.data.map(() => {
+  // return (
+  //   console.log('mapping!')
+  // )
+  // })
+});
 
 
 
@@ -19,17 +32,6 @@ const columns: GridColDef[] = [
   },
   {field: 'email', headerName: 'email', width: 130},
   {field: 'dob', headerName: 'dob', type: 'date', width: 130}
-  // {
-  //   field: 'email',
-  //   headerName: 'email',
-  //   type: 'string',
-  //   description: 'This column has a value getter and is not sortable.',
-  //   sortable: false,
-  //   width: 160,
-  //   // , ValueGetterParams this was originall params:ValueGetterParams - importing on line 2 also 
-  //   valueGetter: (params:any ) =>
-  //     `${params.getValue('firstName') || ''} ${params.getValue('lastName') || ''}`,
-  // },
 ];
 
 const rows = [
@@ -38,7 +40,7 @@ const rows = [
   {id: 3, name: 'Bonnie Powell', phone: '543-210-5648', email: 'email@email.com', dob: '05-27-1988'},
   {id: 4, name: 'Jack Bauer', phone: '603-250-6548', email: 'email@email.com', dob: '05-26-1988'},
   {id: 5, name: 'Toni Powell', phone: '603-856-1985', email: 'email@email.com', dob: '05-26-1933'},
-
+ // {id: something, name: {results.name}, phone {results.phone}, email: {results.email}, dob: {results.dob}}
 ];
 
 
@@ -52,6 +54,3 @@ export default function DataTable() {
   );
 }
 
-// {getUsers.map((users:any, index) => {
-//   return <h1>{users.name.first + users.name.last}</h1>
-// })}
