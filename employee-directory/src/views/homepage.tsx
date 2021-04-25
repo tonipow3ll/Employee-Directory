@@ -1,9 +1,11 @@
+import React from 'react'
 import DataTable from '../components/dataTable';
 
 function HomePage() {
     return(
         <div>
-            <DataTable />
+      <h1>Employee Directory</h1>
+      <DataTable />
         </div>
     )
 }
