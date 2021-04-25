@@ -1,9 +1,15 @@
 import * as React from 'react';
 import { DataGrid, GridColDef } from '@material-ui/data-grid';
+
+// // import api from '../utils/api';
+// import Users from '../data/'
+
+
+
 // , ValueGetterParams 
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'image', headerName: 'image', width: 130 },
+  // { field: 'image', headerName: 'image', width: 130 },
   { field: 'name', headerName: 'name', width: 130 },
   {
     field: 'phone',
@@ -27,21 +33,25 @@ const columns: GridColDef[] = [
 ];
 
 const rows = [
-  {id: 2, image: 1, name: 'Jon Snow', phone: '603-831-2155', email: 'email@email.com', dob: '05-26-1988'},
-//   { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-//   { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-//   { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-//   { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-//   { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-//   { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-//   { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-//   { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
+  {id: 1, name: 'Jon Snow', phone: '603-831-2155', email: 'email@email.com', dob: '05-26-1993'},
+  {id: 2, name: 'Eric Powell', phone: '123-456-789', email: 'email@email.com', dob: '08-26-1998'},
+  {id: 3, name: 'Bonnie Powell', phone: '543-210-5648', email: 'email@email.com', dob: '05-27-1988'},
+  {id: 4, name: 'Jack Bauer', phone: '603-250-6548', email: 'email@email.com', dob: '05-26-1988'},
+  {id: 5, name: 'Toni Powell', phone: '603-856-1985', email: 'email@email.com', dob: '05-26-1933'},
+
 ];
+
+
 
 export default function DataTable() {
   return (
     <div style={{ height: 400, width: '100%' }}>
       <DataGrid rows={rows} columns={columns} pageSize={100} checkboxSelection />
+   
     </div>
   );
 }
+
+// {getUsers.map((users:any, index) => {
+//   return <h1>{users.name.first + users.name.last}</h1>
+// })}
