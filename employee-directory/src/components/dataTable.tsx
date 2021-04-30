@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { DataGrid, GridColDef } from '@material-ui/data-grid';
+import { DataGrid, GridColDef, GridValueFormatterParams, GridValueGetterParams } from '@material-ui/data-grid';
 import API from '../utils/api';
-import { IndexedAccessType } from 'typescript';
+// import { IndexedAccessType } from 'typescript';
 
 
 // have to call API.getUsers().then do stuff. 
@@ -30,21 +30,21 @@ import { IndexedAccessType } from 'typescript';
 //   })
 // }
 
-const makeUsers = () => {
-  API.getUsers().then(results => {
-    let data = results.data.results;
-    // console.log(data)
-    let i;
-    for (i = 0; i < data.length; i++) {
-      const cell = results.data.results[i].cell;
-      const email = results.data.results[i].email;
-      const name = results.data.results[i].name.first + " " + results.data.results[i].name.last;
-      const dob = results.data.results[i].dob.date.toLocaleString('en-US', {timeZone: 'UTC'})
-      console.log(name, cell, email, dob)
+// const makeUsers = () => {
+//   API.getUsers().then(results => {
+//     let data = results.data.results;
+//     // console.log(data)
+//     let i;
+//     for (i = 0; i < data.length; i++) {
+//       const cell = results.data.results[i].cell;
+//       const email = results.data.results[i].email;
+//       const name = results.data.results[i].name.first + " " + results.data.results[i].name.last;
+//       const dob = results.data.results[i].dob.date.toLocaleString('en-US', {timeZone: 'UTC'})
+//       console.log(name, cell, email, dob)
 
-    }
-  })
-}
+//     }
+//   })
+// }
 
 
 // , ValueGetterParams 
@@ -71,41 +71,46 @@ const rows = [
 
 ];
 
-
+interface NameI {
+  first: string;
+  last: string;
+}
 
 export default function DataTable() {
 
 
-  const [setResults, setRowState] = useState([])
+  const [results, setRowState] = useState([])
 
-  //   const userRows = () => {
-  //   const [setResults, setRowState] = React.useState({
-  //     headings: [
-  //       {name: 'name'},
-  //       {phone: 'phone'},
-  //       {email: 'email'},
-  //       {dob: 'dob'},
-  //     ]
-  //   })
-  // };
-
+  let columns: GridColDef[] = [
+    { 
+      valueFormatter: (params: GridValueFormatterParams) => { 
+        console.log(params)
+        const name = params.value as NameI
+        // "as InterfaceName" casts the above
+        return name.first + name.last
+      },
+      field: 'name', 
+      headerName: 'name'
+    },
+    // { field: 'name', headerName: 'name'},
+    // { field: 'name', headerName: 'name'},
+    // { field: 'name', headerName: 'name'},
+    // { field: 'name', headerName: 'name'}
+  ]
+// interface = this thing i'm about to use, must have these properites
   useEffect(() => {
-    API.getUsers().then(results => {
-      console.log(results.data.rezsults);
-      setRowState({
-        ...setResults,
-        // users: results.data.results,
-  
-      })
+    API.getUsers().then(response => {
+      console.log(response.data.results);
+      setRowState(response.data.results)
     })
   }, []);
 
 
   return (
     <div style={{ height: 400, width: '100%' }}>
-      <DataGrid rows={rows} columns={columns} pageSize={100} checkboxSelection />
+      <DataGrid rows={results} columns={columns} pageSize={100} checkboxSelection />
       {/* {createUsers()} */}
-      {makeUsers()}
+      {/* {makeUsers()} */}
 
     </div>
   );
