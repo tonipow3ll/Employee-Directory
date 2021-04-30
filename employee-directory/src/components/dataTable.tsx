@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { DataGrid, GridColDef, GridValueFormatterParams, GridValueGetterParams } from '@material-ui/data-grid';
 import API from '../utils/api';
+import { getConstantValue, IndexedAccessType } from 'typescript';
 // import { IndexedAccessType } from 'typescript';
 
 
@@ -87,32 +88,62 @@ export default function DataTable() {
         console.log(params)
         const name = params.value as NameI
         // "as InterfaceName" casts the above
-        return name.first + name.last
+        
+        return name.first + " " + name.last
       },
       field: 'name', 
-      headerName: 'name'
+      headerName: 'name',
+      width: 150 
     },
-    // { field: 'name', headerName: 'name'},
-    // { field: 'name', headerName: 'name'},
-    // { field: 'name', headerName: 'name'},
-    // { field: 'name', headerName: 'name'}
+    { 
+      valueFormatter: (params: GridValueFormatterParams) => { 
+        // console.log(params)
+        const cell = params.value 
+        // "as InterfaceName" casts the above
+        return cell
+      },
+      field: 'cell', 
+      headerName: 'cell',
+      width: 150 
+    },
+    { 
+      valueFormatter: (params: GridValueFormatterParams) => { 
+        // console.log(params)
+        const email = params.value 
+        // "as InterfaceName" casts the above
+        return email
+      },
+      field: 'email', 
+      headerName: 'email',
+      width: 200 
+    },
   ]
 // interface = this thing i'm about to use, must have these properites
   useEffect(() => {
     API.getUsers().then(response => {
       console.log(response.data.results);
-      setRowState(response.data.results)
+      const newUsers = response.data.results;
+      response.data.results.forEach((newUsers:any) => {
+        console.log(newUsers)
+        setRowState(response.data.results)
+      })
+      // setRowState(response.data.results)
     })
   }, []);
 
 
-  return (
+  return ( 
     <div style={{ height: 400, width: '100%' }}>
-      <DataGrid rows={results} columns={columns} pageSize={100} checkboxSelection />
+      <DataGrid 
+      rows={results} 
+      columns={columns} 
+      pageSize={100} 
+      checkboxSelection />
       {/* {createUsers()} */}
       {/* {makeUsers()} */}
 
     </div>
   );
 }
+
 
