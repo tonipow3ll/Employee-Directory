@@ -50,8 +50,8 @@ export default function DataTable() {
         
       //   return name.first + " " + name.last
       // },
-      field: 'name', 
-      headerName: 'name',
+      field: 'Name', 
+      headerName: 'Name',
       width: 150 
     },
     { 
@@ -59,8 +59,8 @@ export default function DataTable() {
         const cell = params.value 
         return cell
       },
-      field: 'cell', 
-      headerName: 'cell',
+      field: 'Cell', 
+      headerName: 'Cell',
       width: 150 
     },
     { 
@@ -68,17 +68,17 @@ export default function DataTable() {
         const email = params.value 
         return email
       },
-      field: 'email', 
-      headerName: 'email',
-      width: 200 
+      field: 'Email', 
+      headerName: 'Email',
+      width: 250
     },
     { 
       valueFormatter: (params: GridValueFormatterParams) => { 
         const city = params.value 
         return city
       },
-      field: 'city', 
-      headerName: 'city',
+      field: 'City', 
+      headerName: 'City',
       width: 200 
     },
     { 
@@ -86,8 +86,8 @@ export default function DataTable() {
         const location = params.value 
         return location
       },
-      field: 'location', 
-      headerName: 'location',
+      field: 'State', 
+      headerName: 'State',
       width: 200 
     },
     // { 
@@ -118,11 +118,11 @@ export default function DataTable() {
    
         return {
           id: `${newUsers.login.uuid}`,
-          name: `${newUsers.name.first} ${newUsers.name.last}`,
-          cell: `${newUsers.cell}`,
-          email: `${newUsers.email}`,
-          city: `${newUsers.location.city}`,
-          location: `${newUsers.location.state}`,
+          Name: `${newUsers.name.first} ${newUsers.name.last}`,
+          Cell: `${newUsers.cell}`,
+          Email: `${newUsers.email}`,
+          City: `${newUsers.location.city}`,
+          State: `${newUsers.location.state}`,
           // dob: `${newUsers.dob.date}`,
           // picture: `${newUsers.picture.thumbnail}`
         }
