@@ -133,7 +133,6 @@ export default function DataTable() {
       // const newUsers = response.data.results;
       const newUsers = response.data.results.map((newUsers:any) => {
         console.log(newUsers.name.first)
-        // setRowState(response.data.results)
         return {
           id: 5 * Math.random(),
           name: `${newUsers.name.first} ${newUsers.name.last}`,
@@ -141,7 +140,6 @@ export default function DataTable() {
           email: `${newUsers.email}`
         }
       })
-      // setRowState(response.data.results)
       setRowState(newUsers)
     })
   }, []);
@@ -156,9 +154,6 @@ export default function DataTable() {
       columns={columns} 
       pageSize={100} 
       checkboxSelection />
-      {/* {createUsers()} */}
-      {/* {makeUsers()} */}
-
     </div>
   );
 }
