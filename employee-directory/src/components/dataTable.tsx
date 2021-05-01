@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { DataGrid, GridColDef, GridValueFormatterParams, GridValueGetterParams } from '@material-ui/data-grid';
 import API from '../utils/api';
-import { getConstantValue, IndexedAccessType } from 'typescript';
+import { getConstantValue, IndexedAccessType, resolveTripleslashReference } from 'typescript';
 // import { IndexedAccessType } from 'typescript';
 
 
@@ -85,12 +85,20 @@ export default function DataTable() {
   let columns: GridColDef[] = [
     { 
       valueFormatter: (params: GridValueFormatterParams) => { 
-        console.log(params)
-        const name = params.value as NameI
-        // "as InterfaceName" casts the above
-        
-        return name.first + " " + name.last
+       return Math.floor(Math.random() * 5)
       },
+      field: 'id', 
+      headerName: 'id',
+      width: 130 
+    },
+    { 
+      // valueFormatter: (params: GridValueFormatterParams) => { 
+      //   console.log(params)
+      //   const name = params.value as NameI
+      //   // "as InterfaceName" casts the above
+        
+      //   return name.first + " " + name.last
+      // },
       field: 'name', 
       headerName: 'name',
       width: 150 
@@ -122,14 +130,23 @@ export default function DataTable() {
   useEffect(() => {
     API.getUsers().then(response => {
       console.log(response.data.results);
-      const newUsers = response.data.results;
-      response.data.results.forEach((newUsers:any) => {
-        console.log(newUsers)
-        setRowState(response.data.results)
+      // const newUsers = response.data.results;
+      const newUsers = response.data.results.map((newUsers:any) => {
+        console.log(newUsers.name.first)
+        // setRowState(response.data.results)
+        return {
+          id: 5 * Math.random(),
+          name: `${newUsers.name.first} ${newUsers.name.last}`,
+          cell: `${newUsers.cell}`,
+          email: `${newUsers.email}`
+        }
       })
       // setRowState(response.data.results)
+      setRowState(newUsers)
     })
   }, []);
+
+
 
 
   return ( 
