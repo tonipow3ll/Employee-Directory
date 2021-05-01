@@ -1,20 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { DataGrid, GridColDef, GridValueFormatterParams, GridValueGetterParams } from '@material-ui/data-grid';
 import API from '../utils/api';
-import { getConstantValue, IndexedAccessType, resolveTripleslashReference } from 'typescript';
 
+// format date
+// get thumbnails to load 
 
 // , ValueGetterParams 
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 70 },
-  // { field: 'image', headerName: 'image', width: 130 },
   { field: 'name', headerName: 'name', width: 130 },
-  {
-    field: 'phone',
-    headerName: 'phone',
-    // type: 'number',
-    width: 160,
-  },
+  { field: 'phone', headerName: 'phone', width: 160, },
   { field: 'email', headerName: 'email', width: 130 },
   { field: 'dob', headerName: 'dob', type: 'date', width: 130 }
 ];
@@ -34,8 +29,7 @@ interface NameI {
 }
 
 export default function DataTable() {
-
-
+  
   const [results, setRowState] = useState([])
 
   let columns: GridColDef[] = [
@@ -80,6 +74,15 @@ export default function DataTable() {
     },
     { 
       valueFormatter: (params: GridValueFormatterParams) => { 
+        const city = params.value 
+        return city
+      },
+      field: 'city', 
+      headerName: 'city',
+      width: 200 
+    },
+    { 
+      valueFormatter: (params: GridValueFormatterParams) => { 
         const location = params.value 
         return location
       },
@@ -87,15 +90,15 @@ export default function DataTable() {
       headerName: 'location',
       width: 200 
     },
-    { 
-      valueFormatter: (params: GridValueFormatterParams) => { 
-        const dob = params.value 
-        return dob
-      },
-      field: 'dob', 
-      headerName: 'dob',
-      width: 200 
-    },
+    // { 
+    //   valueFormatter: (params: GridValueFormatterParams) => { 
+    //     const dob = params.value 
+    //     return dob
+    //   },
+    //   field: 'dob', 
+    //   headerName: 'dob',
+    //   width: 200 
+    // },
     // { 
     //   valueFormatter: (params: GridValueFormatterParams) => { 
     //     const picture = params.value 
@@ -110,16 +113,17 @@ export default function DataTable() {
   useEffect(() => {
     API.getUsers().then(response => {
       console.log(response.data.results);
-      // const newUsers = response.data.results;
+  
       const newUsers = response.data.results.map((newUsers:any) => {
-        console.log(newUsers.name.first)
+   
         return {
           id: `${newUsers.login.uuid}`,
           name: `${newUsers.name.first} ${newUsers.name.last}`,
           cell: `${newUsers.cell}`,
           email: `${newUsers.email}`,
+          city: `${newUsers.location.city}`,
           location: `${newUsers.location.state}`,
-          dob: `${newUsers.dob.date}`,
+          // dob: `${newUsers.dob.date}`,
           // picture: `${newUsers.picture.thumbnail}`
         }
       })
