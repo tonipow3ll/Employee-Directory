@@ -85,7 +85,8 @@ export default function DataTable() {
   let columns: GridColDef[] = [
     { 
       valueFormatter: (params: GridValueFormatterParams) => { 
-       return Math.floor(Math.random() * 5)
+       const id = params.value
+       return id
       },
       field: 'id', 
       headerName: 'id',
@@ -105,9 +106,7 @@ export default function DataTable() {
     },
     { 
       valueFormatter: (params: GridValueFormatterParams) => { 
-        // console.log(params)
         const cell = params.value 
-        // "as InterfaceName" casts the above
         return cell
       },
       field: 'cell', 
@@ -116,15 +115,40 @@ export default function DataTable() {
     },
     { 
       valueFormatter: (params: GridValueFormatterParams) => { 
-        // console.log(params)
         const email = params.value 
-        // "as InterfaceName" casts the above
         return email
       },
       field: 'email', 
       headerName: 'email',
       width: 200 
     },
+    { 
+      valueFormatter: (params: GridValueFormatterParams) => { 
+        const location = params.value 
+        return location
+      },
+      field: 'location', 
+      headerName: 'location',
+      width: 200 
+    },
+    { 
+      valueFormatter: (params: GridValueFormatterParams) => { 
+        const dob = params.value 
+        return dob
+      },
+      field: 'dob', 
+      headerName: 'dob',
+      width: 200 
+    },
+    // { 
+    //   valueFormatter: (params: GridValueFormatterParams) => { 
+    //     const picture = params.value 
+    //     return picture
+    //   },
+    //   field: 'picture', 
+    //   headerName: 'picture',
+    //   width: 120
+    // },
   ]
 // interface = this thing i'm about to use, must have these properites
   useEffect(() => {
@@ -134,10 +158,13 @@ export default function DataTable() {
       const newUsers = response.data.results.map((newUsers:any) => {
         console.log(newUsers.name.first)
         return {
-          id: 5 * Math.random(),
+          id: `${newUsers.login.uuid}`,
           name: `${newUsers.name.first} ${newUsers.name.last}`,
           cell: `${newUsers.cell}`,
-          email: `${newUsers.email}`
+          email: `${newUsers.email}`,
+          location: `${newUsers.location.state}`,
+          dob: `${newUsers.dob.date}`,
+          // picture: `${newUsers.picture.thumbnail}`
         }
       })
       setRowState(newUsers)
