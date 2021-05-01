@@ -2,50 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { DataGrid, GridColDef, GridValueFormatterParams, GridValueGetterParams } from '@material-ui/data-grid';
 import API from '../utils/api';
 import { getConstantValue, IndexedAccessType, resolveTripleslashReference } from 'typescript';
-// import { IndexedAccessType } from 'typescript';
-
-
-// have to call API.getUsers().then do stuff. 
-// API.getUsers().then(results => {
-//   console.log(results.data.results)
-//   const userData = results.data.results;
-//   userData.forEach(() => {
-//     const rows = [
-//       { id: 1, name: results.data.results.email, phone: '603-831-2155', email: results.data.results[0].email, dob: '05-26-1993' },
-//     ]
-//     console.log(rows)
-//   })
-// });
-
-
-// const createUsers = () => {
-//   API.getUsers().then(results => {
-//     let data = results.data.results;
-//     data.forEach((i:any) => {
-//       const cell = results.data.results[i].cell;
-//       const email = results.data.results[i].email;
-//       const name = results.data.results[i].name.first + " " + results.data.results[i].name.last;
-//       const dob = results.data.results[i].dob.data.toLocaleString('en-US', {timeZone: 'UTC'});
-//       console.log(name, cell, email, dob)
-//     })
-//   })
-// }
-
-// const makeUsers = () => {
-//   API.getUsers().then(results => {
-//     let data = results.data.results;
-//     // console.log(data)
-//     let i;
-//     for (i = 0; i < data.length; i++) {
-//       const cell = results.data.results[i].cell;
-//       const email = results.data.results[i].email;
-//       const name = results.data.results[i].name.first + " " + results.data.results[i].name.last;
-//       const dob = results.data.results[i].dob.date.toLocaleString('en-US', {timeZone: 'UTC'})
-//       console.log(name, cell, email, dob)
-
-//     }
-//   })
-// }
 
 
 // , ValueGetterParams 
@@ -175,7 +131,7 @@ export default function DataTable() {
 
 
   return ( 
-    <div style={{ height: 400, width: '100%' }}>
+    <div style={{ height: 800, width: '100%' }}>
       <DataGrid 
       rows={results} 
       columns={columns} 
