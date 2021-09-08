@@ -10,7 +10,7 @@ function App() {
      
      <HomePage />
     
-  
+  {/* comment in GH web repo */}
     </div>
   );
 }
